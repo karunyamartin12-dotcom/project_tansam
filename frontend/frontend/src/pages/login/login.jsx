@@ -26,12 +26,12 @@ function Login() {
 
     try {
       const response = await fetch("http://localhost:3002/api/auth/login", {
-       method: "POST",
+        method: "POST",
         headers: {
-        "Content-Type": "application/json",
-     },
-  body: JSON.stringify(form),
-});
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(form),
+      });
 
       const data = await response.json();
 
@@ -41,12 +41,12 @@ function Login() {
         return;
       }
 
-      // Save auth data
+      // ✅ Store auth data
       localStorage.setItem("token", data.token);
       localStorage.setItem("user", JSON.stringify(data.user));
 
-      // Redirect based on role
-      const role = data.user?.role;
+      // ✅ Role-based navigation
+      const role = data?.user?.role || "user";
 
       if (role === "superadmin") {
         navigate("/dashboard");

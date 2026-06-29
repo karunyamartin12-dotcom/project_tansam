@@ -1,83 +1,127 @@
-/* Dashboard Container */
-.dashboard {
-  margin-left: 250px; /* Sidebar width */
-  padding: 30px;
-  min-height: 100vh;
-  background-color: #f4f7fc;
-}
+/* Main Dashboard Layout */
 .dashboard-content {
     flex: 1;
-    margin-left: 240px;   /* Space for Sidebar */
-    margin-top: 70px;     /* Space for Header */
+    margin-left: 240px;
+    margin-top: 70px;
     padding: 30px;
-    background: #f4f6f9;
     min-height: 100vh;
+    background: #f4f6f9;
 }
 
-/* Heading */
+/* Dashboard Header */
+.dashboard {
+    max-width: 1200px;
+}
+
 .dashboard h1 {
-  font-size: 32px;
-  color: #2c3e50;
-  margin-bottom: 8px;
+    font-size: 32px;
+    color: #2c3e50;
+    margin-bottom: 8px;
 }
 
-/* Welcome Text */
 .dashboard > p {
-  font-size: 18px;
-  color: #666;
-  margin-bottom: 17px;
+    color: #7f8c8d;
+    font-size: 17px;
+    margin-bottom: 30px;
 }
 
-/* Cards Container */
+/* Cards */
 .dashboard-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 25px;
+    margin-bottom: 40px;
 }
 
-/* Individual Card */
 .card {
-  background: #ffffff;
-  border-radius: 10px;
-  padding: 25px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s ease;
-  cursor: pointer;
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    border-left: 6px solid #27ae60;
 }
 
-/* Hover Effect */
 .card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+    transform: translateY(-6px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
 }
 
-/* Card Title */
 .card h3 {
-  font-size: 18px;
-  color: #555;
-  margin-bottom: 15px;
+    color: #555;
+    font-size: 17px;
+    margin-bottom: 15px;
+    font-weight: 600;
 }
 
-/* Card Number */
 .card p {
-  font-size: 30px;
-  font-weight: bold;
-  color: #007bff;
-  margin: 0;
+    font-size: 36px;
+    color: #27ae60;
+    font-weight: bold;
+    margin: 0;
+}
+
+/* Recent Foods Table */
+.dashboard-table {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+.dashboard-table h2 {
+    margin-bottom: 20px;
+    color: #2c3e50;
+    font-size: 24px;
+}
+
+.dashboard-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.dashboard-table th {
+    background: #27ae60;
+    color: white;
+    padding: 14px;
+    text-align: left;
+}
+
+.dashboard-table td {
+    padding: 14px;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.dashboard-table tr:hover {
+    background: #f8f9fa;
 }
 
 /* Responsive */
+@media (max-width: 992px) {
+    .dashboard-content {
+        margin-left: 0;
+        padding: 20px;
+    }
+}
+
 @media (max-width: 768px) {
-  .dashboard {
-    margin-left: 0;
-    padding: 20px;
-  }
+    .dashboard h1 {
+        font-size: 26px;
+    }
 
-  .dashboard h1 {
-    font-size: 28px;
-  }
+    .dashboard > p {
+        font-size: 15px;
+    }
 
-  .dashboard > p {
-    font-size: 16px;
-  }
+    .dashboard-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-table {
+        overflow-x: auto;
+    }
+
+    .dashboard-table table {
+        min-width: 650px;
+    }
 }

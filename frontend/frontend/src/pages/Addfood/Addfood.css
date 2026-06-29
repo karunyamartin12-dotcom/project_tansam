@@ -1,3 +1,7 @@
+/* ==========================
+   PAGE LAYOUT
+========================== */
+
 .addfood-container {
     display: flex;
     background: #f4f6f9;
@@ -8,78 +12,158 @@
     flex: 1;
     margin-left: 240px;
     margin-top: 70px;
-    padding: 30px;
+    padding: 35px;
 }
+
+/* ==========================
+   HEADER
+========================== */
 
 .addfood-header {
     margin-bottom: 30px;
 }
 
 .addfood-header h1 {
+    font-size: 32px;
     color: #2c3e50;
     margin-bottom: 8px;
 }
 
 .addfood-header p {
     color: #666;
+    font-size: 16px;
 }
+
+/* ==========================
+   FORM CARD
+========================== */
 
 .food-form {
-    background: white;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-    max-width: 700px;
+    max-width: 750px;
+    background: #ffffff;
+    padding: 35px;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
 }
 
-.form-group {
-    margin-bottom: 20px;
+/* Full-width button row */
+.button-group {
+    grid-column: span 2;
 }
 
-.form-group label {
-    display: block;
-    font-weight: 600;
-    margin-bottom: 8px;
-    color: #2c3e50;
-}
+/* ==========================
+   INPUTS
+========================== */
 
-.form-group input,
-.form-group select {
+.food-form input,
+.food-form select {
     width: 100%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
+    padding: 14px 16px;
     font-size: 15px;
+    border: 1px solid #dcdcdc;
+    border-radius: 8px;
+    background: #fafafa;
+    outline: none;
+    transition: 0.3s;
+    box-sizing: border-box;
 }
+
+.food-form input:focus,
+.food-form select:focus {
+    border-color: #27ae60;
+    background: #fff;
+    box-shadow: 0 0 8px rgba(39,174,96,0.2);
+}
+
+/* Placeholder */
+
+.food-form input::placeholder {
+    color: #999;
+}
+
+/* ==========================
+   BUTTONS
+========================== */
 
 .button-group {
     display: flex;
+    justify-content: flex-end;
     gap: 15px;
-    margin-top: 30px;
+    margin-top: 10px;
+}
+
+.save-btn,
+.reset-btn {
+    border: none;
+    padding: 13px 28px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s ease;
 }
 
 .save-btn {
     background: #27ae60;
     color: white;
-    border: none;
-    padding: 12px 22px;
-    border-radius: 6px;
-    cursor: pointer;
 }
 
 .save-btn:hover {
     background: #1f8b4d;
+    transform: translateY(-2px);
 }
 
 .reset-btn {
     background: #e74c3c;
     color: white;
-    border: none;
-    padding: 12px 22px;
-    border-radius: 6px;
-    cursor: pointer;
 }
 
 .reset-btn:hover {
     background: #c0392b;
+    transform: translateY(-2px);
+}
+
+/* ==========================
+   RESPONSIVE
+========================== */
+
+@media (max-width: 992px) {
+
+    .addfood-content {
+        margin-left: 0;
+        padding: 20px;
+    }
+
+    .food-form {
+        grid-template-columns: 1fr;
+    }
+
+    .button-group {
+        grid-column: span 1;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 576px) {
+
+    .food-form {
+        padding: 25px;
+    }
+
+    .addfood-header h1 {
+        font-size: 26px;
+    }
+
+    .save-btn,
+    .reset-btn {
+        width: 100%;
+    }
+
+    .button-group {
+        flex-direction: column;
+    }
 }

@@ -1,27 +1,18 @@
-import React, { useState } from "react";
-import "./Profile.css";
-import Header from "../../components/Header";
+import React, { useEffect, useState } from "react";
 import Sidebar from "../../components/Sidebar";
+import Header from "../../components/Header";
+import "./Profile.css";
 
 function Profile() {
-  const [profile, setProfile] = useState({
-    name: "Admin",
-    email: "admin@example.com",
-    phone: "9876543210",
-    location: "Chennai",
-  });
+  const [user, setUser] = useState(null);
 
-  const handleChange = (e) => {
-    setProfile({
-      ...profile,
-      [e.target.name]: e.target.value,
-    });
-  };
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    alert("Profile updated successfully!");
-  };
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
 
   return (
     <div className="profile-container">
@@ -30,59 +21,36 @@ function Profile() {
       <div className="profile-content">
         <Header />
 
-        <div className="profile-header">
-          <h1>My Profile</h1>
-          <p>View and update your profile information.</p>
+        <div className="profile-card">
+          <h1>Profile 👤</h1>
+
+          <div className="profile-info">
+            <p>
+              <strong>Name:</strong>{" "}
+              {user?.name || "Not available"}
+            </p>
+
+            <p>
+              <strong>Email:</strong>{" "}
+              {user?.email || "Not available"}
+            </p>
+
+            <p>
+              <strong>Role:</strong>{" "}
+              {user?.role || "User"}
+            </p>
+
+            <p>
+              <strong>User ID:</strong>{" "}
+              {user?.id || "Not available"}
+            </p>
+
+            <p>
+              <strong>Age:</strong>{" "}
+              {user?.age || "Not available"}
+            </p>
+          </div>
         </div>
-
-        <form className="profile-form" onSubmit={handleSubmit}>
-
-          <div className="form-group">
-            <label>Name</label>
-            <input
-              type="text"
-              name="name"
-              value={profile.name}
-              onChange={handleChange}
-            />
-          </div>
-
-          <div className="form-group">
-            <label>Email</label>
-            <input
-              type="email"
-              name="email"
-              value={profile.email}
-              onChange={handleChange}
-            />
-          </div>
-
-          <div className="form-group">
-            <label>Phone</label>
-            <input
-              type="text"
-              name="phone"
-              value={profile.phone}
-              onChange={handleChange}
-            />
-          </div>
-
-          <div className="form-group">
-            <label>Location</label>
-            <input
-              type="text"
-              name="location"
-              value={profile.location}
-              onChange={handleChange}
-            />
-          </div>
-
-          <button className="update-btn">
-            Update Profile
-          </button>
-
-        </form>
-
       </div>
     </div>
   );
