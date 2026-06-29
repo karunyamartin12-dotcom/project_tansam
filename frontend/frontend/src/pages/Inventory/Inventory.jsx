@@ -1,129 +1,75 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import API from "../../services/api";
 import "./Inventory.css";
-import Header from "../../components/Header";
-import Sidebar from "../../components/Sidebar";
 
 function Inventory() {
-  const [search, setSearch] = useState("");
-  const [category, setCategory] = useState("All");
-  const [status, setStatus] = useState("All");
+  const [foods, setFoods] = useState([]);
 
-  const foodItems = [
-    {
-      id: 1,
-      name: "Milk",
-      category: "Dairy",
-      quantity: 2,
-      expiry: "30-Jun-2026",
-      status: "Fresh",
-    },
-    {
-      id: 2,
-      name: "Bread",
-      category: "Bakery",
-      quantity: 1,
-      expiry: "28-Jun-2026",
-      status: "Expired",
-    },
-    {
-      id: 3,
-      name: "Apple",
-      category: "Fruits",
-      quantity: 10,
-      expiry: "02-Jul-2026",
-      status: "Fresh",
-    },
-    {
-      id: 4,
-      name: "Tomato",
-      category: "Vegetables",
-      quantity: 6,
-      expiry: "29-Jun-2026",
-      status: "Expiring Soon",
-    },
-  ];
+  // GET ALL FOOD
+  const fetchFoods = async () => {
+    try {
+      const res = await API.get("/food");
+      setFoods(res.data);
+    } catch (error) {
+      console.log("Fetch error:", error.message);
+    }
+  };
 
-  const filteredItems = foodItems.filter((item) => {
-    return (
-      item.name.toLowerCase().includes(search.toLowerCase()) &&
-      (category === "All" || item.category === category) &&
-      (status === "All" || item.status === status)
-    );
-  });
+  useEffect(() => {
+    fetchFoods();
+  }, []);
+
+  // DELETE FOOD
+  const handleDelete = async (id) => {
+    try {
+      await API.delete(`/food/${id}`);
+      fetchFoods(); // refresh list
+    } catch (error) {
+      console.log("Delete error:", error.message);
+    }
+  };
 
   return (
     <div className="inventory-container">
-      <Sidebar />
+      <h1>Inventory</h1>
 
-      <div className="inventory-content">
-        <Header />
+      <table className="inventory-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Food Name</th>
+            <th>Category ID</th>
+            <th>Quantity</th>
+            <th>Purchase Date</th>
+            <th>Expiry Date</th>
+            <th>Location</th>
+            <th>Action</th>
+          </tr>
+        </thead>
 
-        <div className="inventory-header">
-          <h1>Food Inventory</h1>
-          <p>Manage all your food items efficiently.</p>
-        </div>
+        <tbody>
+          {foods.map((item) => (
+            <tr key={item.id}>
+              <td>{item.id}</td>
+              <td>{item.food_name}</td>
+              <td>{item.category_name}</td>
+              <td>{item.quantity}</td>
+              <td>{item.purchase_date}</td>
+              <td>{item.expiry_date}</td>
+              <td>{item.storage_location}</td>
 
-        <div className="inventory-filters">
-          <input
-            type="text"
-            placeholder="Search food..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-
-          <select
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-          >
-            <option>All</option>
-            <option>Fruits</option>
-            <option>Vegetables</option>
-            <option>Dairy</option>
-            <option>Bakery</option>
-            <option>Beverages</option>
-          </select>
-
-          <select
-            value={status}
-            onChange={(e) => setStatus(e.target.value)}
-          >
-            <option>All</option>
-            <option>Fresh</option>
-            <option>Expiring Soon</option>
-            <option>Expired</option>
-          </select>
-        </div>
-
-        <table className="inventory-table">
-          <thead>
-            <tr>
-              <th>Food Name</th>
-              <th>Category</th>
-              <th>Quantity</th>
-              <th>Expiry Date</th>
-              <th>Status</th>
-              <th>Actions</th>
+              <td>
+                <button
+                  className="delete-btn"
+                  onClick={() => handleDelete(item.id)}
+                >
+                  Delete
+                </button>
+              </td>
             </tr>
-          </thead>
-
-          <tbody>
-            {filteredItems.map((item) => (
-              <tr key={item.id}>
-                <td>{item.name}</td>
-                <td>{item.category}</td>
-                <td>{item.quantity}</td>
-                <td>{item.expiry}</td>
-                <td>{item.status}</td>
-                <td>
-                  <button className="edit-btn">Edit</button>
-                  <button className="delete-btn">Delete</button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-
-      </div>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }

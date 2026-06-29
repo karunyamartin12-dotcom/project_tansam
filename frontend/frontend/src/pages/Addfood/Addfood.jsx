@@ -23,40 +23,39 @@ function AddFood() {
 
   // 🔥 SAVE TO BACKEND
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    try {
-      const payload = {
-        food_name: food.foodName,
-        category_id: food.category,
-        quantity: food.quantity,
-        purchase_date: food.purchaseDate,
-        expiry_date: food.expiryDate,
-        storage_location: food.location,
-      };
+  try {
+    const payload = {
+      food_name: food.foodName,
+      category_id: Number(food.category),
+      quantity: food.quantity,
+      purchase_date: food.purchaseDate,
+      expiry_date: food.expiryDate,
+      storage_location: food.location,
+    };
 
-      console.log("Sending to backend:", payload);
+    console.log("Sending to backend:", payload);
 
-      await API.post("/foods", payload);
+    await API.post("/food", payload); // ✅ FIXED HERE
 
-      alert("Food added successfully!");
+    alert("Food added successfully!");
 
-      // reset form
-      setFood({
-        foodName: "",
-        category: "",
-        quantity: "",
-        purchaseDate: "",
-        expiryDate: "",
-        location: "",
-      });
+    setFood({
+      foodName: "",
+      category: "",
+      quantity: "",
+      purchaseDate: "",
+      expiryDate: "",
+      location: "",
+    });
+  } catch (error) {
+    console.log("Error:", error.response?.data || error.message);
+    alert("Failed to add food");
+  }
+};
 
-    } catch (error) {
-      console.log("Error:", error.response?.data || error.message);
-      alert("Failed to add food");
-    }
-  };
-
+    
   const handleReset = () => {
     setFood({
       foodName: "",

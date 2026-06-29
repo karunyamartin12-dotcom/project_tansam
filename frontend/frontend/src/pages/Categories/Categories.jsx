@@ -87,7 +87,7 @@ function Categories() {
   // 🔹 DELETE
   const handleDelete = async (id) => {
     try {
-      await API.delete(`/api/categories/${id}`);
+      await API.delete(`/categories/${id}`);
       fetchCategories();
     } catch (error) {
       console.log("Delete error:", error.message);

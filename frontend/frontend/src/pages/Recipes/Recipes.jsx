@@ -1,41 +1,59 @@
-import React, { useState } from "react";
-import "./Recipes.css";
-import Header from "../../components/Header";
+import React, { useEffect, useState } from "react";
+import API from "../../services/api";
 import Sidebar from "../../components/Sidebar";
+import Header from "../../components/Header";
+import "./Recipes.css";
 
-function Recipes() {
+function Recipe() {
+  const [foods, setFoods] = useState([]);
   const [search, setSearch] = useState("");
 
-  const recipes = [
-    {
-      id: 1,
-      name: "Fruit Salad",
-      ingredients: "Apple, Banana, Orange",
-      preparation: "Mix all fruits together and serve chilled.",
-    },
-    {
-      id: 2,
-      name: "Veg Sandwich",
-      ingredients: "Bread, Tomato, Cheese",
-      preparation: "Layer the ingredients between bread slices.",
-    },
-    {
-      id: 3,
-      name: "Banana Milkshake",
-      ingredients: "Milk, Banana, Sugar",
-      preparation: "Blend all ingredients and serve cold.",
-    },
-    {
-      id: 4,
-      name: "Vegetable Soup",
-      ingredients: "Carrot, Tomato, Onion",
-      preparation: "Boil vegetables, blend them, and season to taste.",
-    },
-  ];
+  const fetchFoods = async () => {
+    try {
+      const res = await API.get("/food");
+      setFoods(res.data);
+    } catch (error) {
+      console.log("Error:", error.message);
+    }
+  };
 
-  const filteredRecipes = recipes.filter((recipe) =>
-    recipe.name.toLowerCase().includes(search.toLowerCase())
+  useEffect(() => {
+    fetchFoods();
+  }, []);
+
+  // expiry check
+  const getStatus = (date) => {
+    const today = new Date();
+    const expiry = new Date(date);
+
+    const diff = Math.ceil((expiry - today) / (1000 * 60 * 60 * 24));
+
+    if (diff < 0) return "expired";
+    if (diff <= 7) return "soon";
+    return "safe";
+  };
+
+  // only usable foods
+  const usableFoods = foods.filter(
+    (f) => getStatus(f.expiryDate || f.expiry_date) !== "expired"
   );
+
+  // filter by search
+  const filteredFoods = usableFoods.filter((f) =>
+    (f.foodName || f.food_name)
+      .toLowerCase()
+      .includes(search.toLowerCase())
+  );
+
+  // group by category
+  const grouped = filteredFoods.reduce((acc, item) => {
+    const category = item.category_name || item.category || "Others";
+
+    if (!acc[category]) acc[category] = [];
+    acc[category].push(item);
+
+    return acc;
+  }, {});
 
   return (
     <div className="recipes-container">
@@ -44,38 +62,51 @@ function Recipes() {
       <div className="recipes-content">
         <Header />
 
+        {/* HEADER */}
         <div className="recipes-header">
-          <h1>Recipe Suggestions</h1>
-          <p>Prepare delicious meals using the food available in your inventory.</p>
+          <h1>Recipes 🍽️</h1>
+          <p>Cook with what you already have</p>
         </div>
 
+        {/* SEARCH */}
         <div className="search-box">
           <input
             type="text"
-            placeholder="Search recipe..."
+            placeholder="Search ingredients..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
         </div>
 
+        {/* GRID */}
         <div className="recipe-grid">
-          {filteredRecipes.map((recipe) => (
-            <div className="recipe-card" key={recipe.id}>
-              <h2>{recipe.name}</h2>
+          {Object.keys(grouped).length === 0 ? (
+            <p>No recipes found</p>
+          ) : (
+            Object.keys(grouped).map((category, index) => (
+              <div className="recipe-card" key={index}>
+                <h2>{category}</h2>
 
-              <h4>Ingredients</h4>
-              <p>{recipe.ingredients}</p>
+                <h4>Ingredients</h4>
+                <p>
+                  {grouped[category]
+                    .map((f) => f.foodName || f.food_name)
+                    .join(", ")}
+                </p>
 
-              <h4>Preparation</h4>
-              <p>{recipe.preparation}</p>
+                <h4>Status</h4>
+                <p>
+                  {grouped[category].length} items available in this category
+                </p>
 
-              <button>View Recipe</button>
-            </div>
-          ))}
+                <button>View Recipe</button>
+              </div>
+            ))
+          )}
         </div>
       </div>
     </div>
   );
 }
 
-export default Recipes;
+export default Recipe;
