@@ -1,0 +1,92 @@
+.inventory-container {
+    display: flex;
+    background: #f4f6f9;
+    min-height: 100vh;
+}
+
+.inventory-content {
+    flex: 1;
+    margin-left: 240px;
+    margin-top: 70px;
+    padding: 30px;
+}
+
+.inventory-header {
+    margin-bottom: 25px;
+}
+
+.inventory-header h1 {
+    color: #2c3e50;
+    margin-bottom: 5px;
+}
+
+.inventory-header p {
+    color: #666;
+}
+
+.inventory-filters {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+}
+
+.inventory-filters input,
+.inventory-filters select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    min-width: 200px;
+}
+
+.inventory-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+.inventory-table th {
+    background: #2c3e50;
+    color: white;
+    padding: 15px;
+    text-align: left;
+}
+
+.inventory-table td {
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.inventory-table tr:hover {
+    background: #f9f9f9;
+}
+
+.edit-btn {
+    background: #3498db;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    margin-right: 8px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.edit-btn:hover {
+    background: #2980b9;
+}
+
+.delete-btn {
+    background: #e74c3c;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.delete-btn:hover {
+    background: #c0392b;
+}

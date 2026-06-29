@@ -1,0 +1,96 @@
+.expiry-container {
+    display: flex;
+    background: #f4f6f9;
+    min-height: 100vh;
+}
+
+.expiry-content {
+    flex: 1;
+    margin-left: 240px;
+    margin-top: 70px;
+    padding: 30px;
+}
+
+.expiry-header {
+    margin-bottom: 30px;
+}
+
+.expiry-header h1 {
+    color: #2c3e50;
+}
+
+.expiry-header p {
+    color: #666;
+    margin-top: 5px;
+}
+
+.summary-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.summary-card {
+    color: white;
+    padding: 25px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.summary-card h2 {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+.expired {
+    background: #e74c3c;
+}
+
+.today {
+    background: #f39c12;
+}
+
+.upcoming {
+    background: #27ae60;
+}
+
+.expiry-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+.expiry-table th {
+    background: #2c3e50;
+    color: white;
+    padding: 15px;
+    text-align: left;
+}
+
+.expiry-table td {
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.expiry-table tr:hover {
+    background: #f8f8f8;
+}
+
+.status-expired {
+    color: #e74c3c;
+    font-weight: bold;
+}
+
+.status-today {
+    color: #f39c12;
+    font-weight: bold;
+}
+
+.status-upcoming {
+    color: #27ae60;
+    font-weight: bold;
+}

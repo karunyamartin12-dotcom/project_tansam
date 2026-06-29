@@ -6,12 +6,13 @@ const {
     register,
     login,
     dashboard,
+    getDashboardCounts,
     getUsers,
     getAdmins,
     getDashboard,
     getRoles,
     addRole
-} = require("../controller/userController");
+} = require("../controllers/userController");
 
 const authMiddleware =
 require("../middleware/authmiddleware");
@@ -25,4 +26,11 @@ router.get(
     authMiddleware,
     dashboard
 );
+
+router.get(
+    "/dashboard-count",
+    authMiddleware,
+    getDashboardCounts
+);
+
 module.exports = router;

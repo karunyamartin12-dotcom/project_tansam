@@ -1,4 +1,7 @@
-const BASE_URL =
-"http://localhost:3002/api/auth";
+import axios from "axios";
 
-export default BASE_URL;
+const API = axios.create({
+  baseURL: "http://localhost:3002/api",
+});
+
+export default API;

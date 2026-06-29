@@ -1,39 +1,49 @@
-import "./dashboard.css";
-import { useNavigate } from "react-router-dom";
+import "./Dashboard.css";
+import Header from "../../components/Header";
+import Sidebar from "../../components/Sidebar";
 
 function Dashboard() {
-
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    localStorage.removeItem("token"); // Remove token if stored
-    navigate("/");
+  const dashboardData = {
+    totalUsers: 120,
+    totalFoodItems: 85,
+    expiredItems: 12,
+    expiringSoon: 18,
   };
 
   return (
     <div className="dashboard-container">
-
-      <header className="dashboard-header">
-        <h1>Dashboard</h1>
-        <button onClick={handleLogout}>
-          Logout
-        </button>
-      </header>
+      <Sidebar />
 
       <div className="dashboard-content">
-        <h2>Welcome to the Dashboard!</h2>
-        <p>
-          You have successfully logged in.
-        </p>
+        <Header />
 
-        <div className="dashboard-card">
-          <h3>User Information</h3>
-          <p>Name: User</p>
-          <p>Email: user@example.com</p>
-          <p>Role: Admin</p>
+      <div className="dashboard-header">
+          <h1>Dashboard</h1>
+          <p>Manage your food inventory and monitor expiry dates efficiently.</p>
+        </div>
+
+        <div className="dashboard-cards">
+          <div className="card">
+            <h3>Total Users</h3>
+            <p>{dashboardData.totalUsers}</p>
+          </div>
+
+          <div className="card">
+            <h3>Total Food Items</h3>
+            <p>{dashboardData.totalFoodItems}</p>
+          </div>
+
+          <div className="card">
+            <h3>Expired Items</h3>
+            <p>{dashboardData.expiredItems}</p>
+          </div>
+
+          <div className="card">
+            <h3>Expiring Soon</h3>
+            <p>{dashboardData.expiringSoon}</p>
+          </div>
         </div>
       </div>
-
     </div>
   );
 }
