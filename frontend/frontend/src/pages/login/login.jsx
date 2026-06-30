@@ -1,7 +1,7 @@
 import "./Login.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import BASE_URL from "../../services/api";
+import API from "../../services/api";
 
 function Login() {
   const navigate = useNavigate();
@@ -25,39 +25,32 @@ function Login() {
     setLoading(true);
 
     try {
-      const response = await fetch("http://localhost:3002/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(form),
-      });
+      const response = await API.post("/auth/login", form);
 
-      const data = await response.json();
+      const data = response.data;
+      console.log("Login Response:", data);
+console.log("User Role:", data.user.role);
 
-      if (!response.ok) {
-        alert(data.message || "Login failed");
-        setLoading(false);
-        return;
-      }
-
-      // ✅ Store auth data
+      // Store user information
       localStorage.setItem("token", data.token);
       localStorage.setItem("user", JSON.stringify(data.user));
 
-      // ✅ Role-based navigation
-      const role = data?.user?.role || "user";
+      const role = data.user.role;
 
-      if (role === "superadmin") {
-        navigate("/dashboard");
-      } else if (role === "admin") {
-        navigate("/admin-dashboard");
-      } else {
-        navigate("/dashboard");
-      }
+
+
+if (role === "superadmin") {
+  navigate("/superadmin");
+} else {
+  navigate("/dashboard");
+}
     } catch (error) {
-      console.error("Login error:", error);
-      alert("Server not reachable. Please try again later.");
+      console.error("Login Error:", error);
+
+      alert(
+        error.response?.data?.message ||
+        "Server not reachable. Please try again."
+      );
     } finally {
       setLoading(false);
     }
@@ -69,8 +62,8 @@ function Login() {
 
       <form onSubmit={handleSubmit}>
         <input
-          name="email"
           type="email"
+          name="email"
           placeholder="Email"
           value={form.email}
           onChange={handleChange}
@@ -78,8 +71,8 @@ function Login() {
         />
 
         <input
-          name="password"
           type="password"
+          name="password"
           placeholder="Password"
           value={form.password}
           onChange={handleChange}
@@ -89,6 +82,11 @@ function Login() {
         <button type="submit" disabled={loading}>
           {loading ? "Logging in..." : "Login"}
         </button>
+
+        <p>
+          Don't have an account?{" "}
+          <a href="/register">Register</a>
+        </p>
       </form>
     </div>
   );

@@ -7,6 +7,7 @@ const authRoutes = require("./routes/userRoutes");
 const categoryRoutes = require("./routes/categoryRoutes");
 const foodRoutes = require("./routes/foodRoutes");
 const dashboardRoutes = require("./routes/dashboardRoutes");
+const superAdminRoutes = require("./routes/superAdminRoutes");
 const app = express();
 
 /*
@@ -22,7 +23,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/categories", categoryRoutes);
 app.use("/api/food", foodRoutes);
 app.use("/api/dashboard", dashboardRoutes);
-
+app.use("/api/superadmin", superAdminRoutes);
 /*
   Test Route
 */

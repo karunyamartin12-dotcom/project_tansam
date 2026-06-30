@@ -1,0 +1,48 @@
+.manageadmins-container {
+    display: flex;
+    background: #f4f6f9;
+    min-height: 100vh;
+}
+
+.manageadmins-content {
+    flex: 1;
+    margin-left: 240px;
+    margin-top: 70px;
+    padding: 30px;
+}
+
+.manageadmins-header {
+    margin-bottom: 25px;
+}
+
+.manageadmins-header h1 {
+    color: #2c3e50;
+}
+
+.manageadmins-header p {
+    color: #777;
+}
+
+.admins-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 10px rgba(0,0,0,.08);
+}
+
+.admins-table th {
+    background: #3498db;
+    color: white;
+    padding: 15px;
+}
+
+.admins-table td {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.admins-table tr:hover {
+    background: #f8f8f8;
+}

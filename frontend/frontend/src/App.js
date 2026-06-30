@@ -1,7 +1,7 @@
  import {
- BrowserRouter,
- Routes,
- Route
+  BrowserRouter,
+  Routes,
+  Route
 } from "react-router-dom";
 
 import Login from "./pages/Login/Login";
@@ -14,86 +14,101 @@ import Expiry from "./pages/Expiry/Expiry";
 import Analytics from "./pages/Analytics/Analytics";
 import Recipes from "./pages/Recipes/Recipes";
 import Profile from "./pages/Profile/Profile";
-//import Users from "./pages/users/users";
-//import Admins from "./pages/admins/admins";
-//import Roles from "./pages/roles/roles";
-//import AdminDashboard from "./pages/admin/admindashboard/admindashboard";
+
+// Super Admin Pages
+import SuperAdmin from "./pages/SuperAdmin/SuperAdmin";
+import ManageUsers from "./pages/ManageUsers/ManageUsers";
+
+// (We'll create this next)
+import ManageAdmins from "./pages/ManageAdmins/ManageAdmins";
+import ProtectedRoute from "./components/ProtectedRoute";
 function App() {
+  return (
+    <BrowserRouter>
 
- return (
+      <Routes>
 
-  <BrowserRouter>
+        {/* Authentication */}
+        <Route
+          path="/"
+          element={<Register />}
+        />
 
-   <Routes>
+        <Route
+          path="/register"
+          element={<Register />}
+        />
 
-    <Route
-      path="/"
-      element={<Register />}
-    />
+        <Route
+          path="/login"
+          element={<Login />}
+        />
 
-    <Route
-      path="/register"
-      element={<Register />}
-    />
+        {/* Admin/User Pages */}
 
-     <Route
-      path="/login"
-      element={<Login />}
-    />
+        <Route
+          path="/dashboard"
+          element={<Dashboard />}
+        />
 
-    <Route
-      path="/dashboard"
-      element={<Dashboard />}
-    />
-    <Route
-  path="/categories"
-  element={<Categories />}
-/>
-<Route
-  path="/addfood"
-  element={<Addfood />}
-/>
-<Route
-  path="/inventory"
-  element={<Inventory />}
-/><Route
-  path="/expiry"
-  element={<Expiry />}
-/>
-<Route
-  path="/analytics"
-  element={<Analytics />}
-/>
-<Route
-  path="/recipes"
-  element={<Recipes />}
-/><Route
-  path="/profile"
-  element={<Profile />}
-/>
-    {/*<Route
- path="/users"
- element={<Users />}
-/>
-    <Route
- path="/admins"
- element={<Admins />}
-/>
-    <Route
- path="/roles"
- element={<Roles />}
-/>
-    <Route
-      path="/admin-dashboard"
-      element={<AdminDashboard />}
-    /> */}
+        <Route
+          path="/categories"
+          element={<Categories />}
+        />
 
-   </Routes>
+        <Route
+          path="/addfood"
+          element={<Addfood />}
+        />
 
-  </BrowserRouter>
+        <Route
+          path="/inventory"
+          element={<Inventory />}
+        />
 
- );
+        <Route
+          path="/expiry"
+          element={<Expiry />}
+        />
 
+        <Route
+          path="/analytics"
+          element={<Analytics />}
+        />
+
+        <Route
+          path="/recipes"
+          element={<Recipes />}
+        />
+
+        <Route
+          path="/profile"
+          element={<Profile />}
+        />
+
+        {/* Super Admin */}
+
+        <Route
+          path="/superadmin"
+          element={<SuperAdmin />}
+        />
+
+        <Route
+          path="/manage-users"
+          element={<ManageUsers />}
+        />
+
+         <Route
+          path="/manage-admins"
+          element={<ManageAdmins />}
+        />
+        
+
+      </Routes>
+
+    </BrowserRouter>
+  );
 }
 
 export default App;
+    

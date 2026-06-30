@@ -1,0 +1,51 @@
+.superadmin-container {
+    display: flex;
+    background: #f4f6f9;
+    min-height: 100vh;
+}
+
+.superadmin-content {
+    flex: 1;
+    margin-left: 240px;
+    margin-top: 70px;
+    padding: 30px;
+}
+
+.superadmin-header h1 {
+    color: #2c3e50;
+    margin-bottom: 5px;
+}
+
+.superadmin-header p {
+    color: #777;
+    margin-bottom: 30px;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+    gap: 20px;
+}
+
+.card {
+    background: white;
+    border-radius: 12px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 5px 12px rgba(0,0,0,.08);
+    transition: .3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card h3 {
+    color: #555;
+    margin-bottom: 15px;
+}
+
+.card h2 {
+    color: #27ae60;
+    font-size: 36px;
+}
